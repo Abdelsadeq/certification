@@ -1,0 +1,573 @@
+<!DOCTYPE html>
+<html lang="ar">
+<head>
+  <meta charset="UTF-8">
+  <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>بيانات الشهادات</title>
+  <script src="https://cdn.jsdelivr.net/npm/vue@2.7.14/dist/vue.js"></script>
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Sofia&effect=fire">
+  
+  <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+  <--link rel="stylesheet" href="./style.css"-->
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      background-color: #f4f4f9;
+      margin: 20px;
+      direction: rtl;
+      text-align: right;
+    }
+
+	
+	
+	
+	
+	/* جعل الشعار في مكان ثابت على الشاشة */
+.logo-container {
+  
+position: absolute;
+  top: 30px;
+  left: 10px;
+  width: 120px; /* تعديل الحجم حسب الحاجة */
+  height: auto;
+  z-index: 1000; /* لضمان بقائها فوق المحتوى */
+}
+
+/* تنسيق الصورة داخل الكونتينر */
+.logo-container img {
+  width: 100%;
+  top: 20px;
+  height: auto;
+}
+
+.logo-container img:hover {
+  transform: scale(1.1);
+  text-shadow: 0 0 20px rgba(0,255,255,0.5);
+}
+
+.wlogo-container img:hover::before {
+  opacity: 1;
+  transform: rotate(-45deg) translateY(100%);
+}
+
+
+/* welcome*/
+
+.welcome {
+  
+position: absolute;
+font-family: 'Brush Script MT', cursive;
+font-family: "Sofia", sans-serif;
+text-align:center;
+color: #ababab;
+font-size:22px;
+text-shadow: 3px 3px 3px #ababab;
+  top: 40px;
+  right: 80px;
+  padding-right:15px;
+  width: 120px; /* تعديل الحجم حسب الحاجة */
+  height: auto;
+  z-index: 1000; /* لضمان بقائها فوق المحتوى */
+}
+
+
+.welcome:hover {
+  transform: scale(1.1);
+  text-shadow: 0 0 20px rgba(0,255,255,0.5);
+}
+
+.welcome:hover::before {
+  opacity: 1;
+  transform: rotate(-45deg) translateY(100%);
+}
+
+
+.logo-container {
+  
+position: absolute;
+  top: 70px;
+  left: 5px;
+  width: 120px; /* تعديل الحجم حسب الحاجة */
+  height: auto;
+  z-index: 1000; /* لضمان بقائها فوق المحتوى */
+}
+
+
+
+
+/* ضبط filters بحيث لا يتحرك المحتوى تحت الصورة */
+.filters {
+	margin:20px;
+  background: #e3f2fd; /* لون أزرق فاتح */
+  padding: 20px;
+  padding-right: 150px; /* يترك مساحة ثابتة على اليمين للصورة */
+  padding-left: 150px;
+  border-radius: 40px;
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.3);
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  align-items: center;
+  gap: 25px; /* مسافة بين العناصر */
+  min-height: 120px; /* تأمين مساحة للصورة حتى لا يقترب المحتوى منها */
+  
+}
+
+/* التأكد من أن العناصر لا تقترب من الصورة */
+.filters .filter-item {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  width: 170px;
+}
+
+/* تحسين تنسيق العناوين والحقول */
+.filters label {
+  font-weight: bold;
+  margin-bottom: 5px;
+}
+
+.filters select,
+.filters input,
+.filters button {
+  width: 100%;
+  padding: 10px;
+  font-size: 14px;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+}
+
+.filters button {
+  background-color: #007BFF;
+  color: white;
+  border: none;
+  cursor: pointer;
+  margin-top: 20px;
+}
+
+.filters button:hover {
+  background-color: #0056b3;
+}
+
+
+
+
+
+
+
+
+    .certification-row {
+      margin-bottom: 20px;
+    }
+    .card {
+	margin:20px;
+      background: #f2f2f0;
+      border: 10px solid #ddd;
+      border-radius: 50px;
+      box-shadow: 0 2px 10px rgba(255, 255, 255, 0.4);
+      margin-left: 210px;
+	  margin-right: 210px;
+	  margin-top: 50px;
+      padding: 20px;
+	  text-align:center;
+	  
+	  
+	  
+	  
+  
+ 
+  font: bold 1rem sans-serif;
+  
+  padding: 1rem;
+  outline-offset: 0.5rem;
+	  
+    }
+    .card h1 {
+      margin-top: 0;
+      color: #333;
+	  text-align:center;
+	  
+    }
+	
+	.card h1:hover {
+  transform: scale(1.05);
+  text-shadow: 0 0 20px rgba(0,255,255,0.5);
+}
+
+.card h1:hover::before {
+  opacity: 1;
+  transform: rotate(-45deg) translateY(100%);
+}
+	
+	
+	
+	
+    .card ul {
+      list-style: none;
+      padding: 0;
+    }
+    .card ul li {
+      margin: 5px 0;
+    }
+    .job-card {
+      background: #f8f9fa;
+      border: 1px solid #ddd;
+      box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+    }
+    .link-buttons {
+      margin-top: 15px;
+    }
+    .link-buttons a {
+      display: block;
+      margin: 5px 0;
+      padding: 10px;
+      text-align: center;
+      text-decoration: none;
+      color: white;
+      background-color: #007BFF;
+      border-radius: 5px;
+    }
+    .link-buttons a:hover {
+      background-color: #0056b3;
+    }
+	
+	
+	
+	
+	
+	
+	.bottom-image {
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  position: absolute;
+  bottom: 0;
+  
+  left: 0;
+}
+
+.bottom-image img {
+  max-width: 100%;
+  height: auto;
+  opacity: 0.2; /* إضافة شفافية للصورة */
+}
+
+
+
+
+
+button:hover{
+  background: #47a7f5 radial-gradient(circle, transparent 1%, #47a7f5 1%)
+   center/15000%;
+  color: white;
+}
+
+button:active{
+  background-color: #292d3e;
+  background-size: 100%;
+  transition: background 0s;
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+.c p {
+	margin: 0;
+	line-height: 1.6;
+}
+
+.c ul , ol{
+	list-style: none;
+	counter-reset: list;
+	padding: 0 1rem;
+}
+
+.c li {
+	--stop: calc(100% / var(--length) * var(--i));
+	--l: 62%;
+	--l2: 88%;
+	--h: calc((var(--i) - 1) * (180 / var(--length)));
+	--c1: hsl(var(--h), 71%, var(--l));
+	--c2: hsl(var(--h), 71%, var(--l2));
+	
+	position: relative;
+	counter-increment: list;
+	max-width: 45rem;
+	margin: 2rem auto;
+	padding: 2rem 1rem 1rem;
+	box-shadow: 0.1rem 0.1rem 1.5rem rgba(0, 0, 0, 0.3);
+	border-radius: 0.25rem;
+	overflow: hidden;
+	background-color: white;
+}
+
+.c li::before {
+	content: '';
+	display: block;
+	width: 100%;
+	height: 1rem;
+	position: absolute;
+	top: 0;
+	left: 0;
+	background: linear-gradient(to right, var(--c1) var(--stop), var(--c2) var(--stop));
+}
+
+.c h3 {
+	display: flex;
+	align-items: baseline;
+	margin: 0 0 1rem;
+	color: rgb(70 70 70);
+}
+.c h1 {
+	
+	text-align: center;
+	margin: 0 0 1rem;
+	color: #ffe9e3;
+	font-size: 40px;
+}
+
+
+.c h3::before {
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	flex: 0 0 auto;
+	margin-right: 1rem;
+	width: 3rem;
+	height: 3rem;
+	content: counter(list);
+	padding: 1rem;
+	border-radius: 50%;
+	background-color: var(--c1);
+	color: white;
+}
+
+@media (min-width: 40em) {
+	.c li {
+		margin: 1rem auto;
+		padding: 1rem 1rem 1rem;
+	}
+	
+	.c h3 {
+		font-size: 2.25rem;
+		margin: 0 0 2rem;
+	}
+	
+	.c h3::before {
+		margin-right: 1.5rem;
+	}
+}
+
+
+
+
+
+.itm{
+border-block: 0.5rem solid #FFF;
+writing-mode: horizontal-tb;
+direction: rtl;
+}
+.itm2{border-block-end: 0.5rem solid #FFF;
+writing-mode: horizontal-tb;				
+}
+
+
+
+.body-image{
+	display: flex;
+  justify-content: center;
+  align-items: center;
+  
+}
+
+
+/* النمط الخاص بالصورة */
+.body-image img {
+  width: 86.67%; /* 2/3 من العرض */
+  max-width: 100%; /* لضمان عدم تجاوز حجم الصورة لحجم الحاوية */
+  /*height: auto;  للحفاظ على نسبة العرض إلى الارتفاع */
+  border-radius: 30px;
+}
+
+.filters select {
+  color: black;
+  background-color: white; /* خلفية بيضاء للتأكد */
+}
+
+.filters select option {
+  color: black;
+  background-color: white;
+}
+  </style>
+</head>
+<body>
+  <div id="app">
+    <!-- Filters Section -->
+
+	
+	<!-- قسم للصورة فقط -->
+<div class="logo-container">
+<img src="{{ url_for('static', filename='badge.png') }}" alt="شعار" />
+  <!--img src="badge.png" alt="شعار" /-->
+</div>
+
+<div class="welcome">
+  <!--<img src="badge.png" alt="شعار" />-->
+  <p class="font-effect-fire">Helps you <br> to find your <br> perfect certificate</p>
+</div>
+
+<!-- الفلتر الرئيسي -->
+<div class="filters">
+  <div class="filter-item">
+    <label for="path">اسم المسار</label>
+    {% raw %}
+    <select id="path" v-model="path">
+      <option value="" disabled>اختر المسار</option>
+      <option v-for="p in Paths" :key="p" :value="p">{{ p }}</option>
+    </select>
+    {% endraw %}
+  </div>
+
+  <div class="filter-item">
+    <label for="specialization">التخصص</label>
+    {% raw %}
+    <select id="specialization" v-model="specialization">
+      <option value="" disabled>اختر التخصص</option>
+      <option v-for="s in specializations" :key="s" :value="s">{{ s }}</option>
+    </select>
+    {% endraw %}
+  </div>
+
+  <div class="filter-item">
+    <label for="min_budget">أقل مبلغ</label>
+    <input type="number" id="min_budget" v-model.number="min_budget" placeholder="الحد الأدنى">
+  </div>
+
+  <div class="filter-item">
+    <label for="max_budget">أكبر مبلغ</label>
+    <input type="number" id="max_budget" v-model.number="max_budget" placeholder="الحد الأقصى">
+  </div>
+
+  <div class="filter-item">
+    <button @click="fetchCertifications">استرجاع الشهادات</button>
+  </div>
+</div>
+	
+	
+	
+    <!-- Certification Cards -->
+    <div v-if="certifications.length === 0">
+  <div class="body-image">
+    <!--img src="certeficate04-ezgif.com-crop.gif" alt="شعار" /-->
+    <img src="{{ url_for('static', filename='certeficate04-ezgif.com-crop.gif') }}" alt="شعار" />
+  </div>
+  لم يتم العثور على شهادات لنطاق الميزانية والمسار والتخصص المحددين
+</div>
+<div v-else>
+  {% raw %}
+  <div v-for="certification in certifications" :key="certification.id" class="certification-row">
+    <div class="card">
+      <h1 class="font-effect-fire">{{ certification.properties.name }}</h1>
+      <ul style="--length: 5" role="list">
+        <div class="itm"><h2>تعريف الشهادة</h2><h3><li>{{ certification.properties.description }}</li></h3></div>
+        <div class="itm2"><h2>الجهه المانحه</h2><h3><li>{{ certification.properties.provider }}</li></h3></div>
+        <div class="itm2"><h2>تكلفة التدريب</h2><h3><li>{{ certification.properties.trainingCost }}</li></h3></div>
+        <div class="itm2"><h2>تكلفة الاختبار</h2><h3><li>{{ certification.properties.examCost }}</li></h3></div>
+        <div class="itm2"><h2>التكلفة الإجمالية</h2><h3><li>{{ certification.properties.totalCost }}</li></h3></div>
+        <div class="itm2"><h2>نوع التعليم</h2><h3><li>{{ certification.properties.learningMode }}</li></h3></div>
+        <div class="itm2"><h2>عدد الاختبارات</h2><h3><li>{{ certification.properties.numberOfExams }}</li></h3></div>
+      </ul>
+      <div class="link-buttons">
+        <a v-if="certification.properties.registrationMethod" :href="certification.properties.registrationMethod" target="_blank">موقع التسجيل</a>
+        <a v-if="certification.properties.learningSource" :href="certification.properties.learningSource" target="_blank">موقع التعليم</a>
+        <a v-if="certification.properties.officialWebsite" :href="certification.properties.officialWebsite" target="_blank">الموقع الرسمي</a>
+      </div>
+    </div>
+  </div>
+  {% endraw %}
+  <!-- Job Titles Card -->
+  <div class="c">
+    <h1>المسميات الوظيفية</h1>
+    {% raw %}
+    <ol style="--length: 5" role="list">
+      <li v-for="(job, index) in jobTitles" :key="index" style="--i: 1">
+        <h3>{{ job }}</h3>
+      </li>
+    </ol>
+    {% endraw %}
+  </div>
+</div>
+  </div>
+
+  
+
+  <script>
+  new Vue({
+    el: "#app",
+    data: {
+      path: '',
+      specialization: '',
+      min_budget: '',
+      max_budget: '',
+      certifications: [],
+      jobTitles: [],
+      Paths: ['علمي', 'إداري'],
+      specializations:  ['تحليل بيانات', 'شبكات', 'أمن معلومات وأمن سيبراني', 'موارد بشرية', 'محاسبة وتمويل واستثمار', 'إدارة مخاطر وتأمين', 'إدارة مشاريع', 'تسويق ومبيعات', 'اداره انتاج']
+    },
+    methods: {
+      fetchSpecializations() {
+        axios.get("http://127.0.0.1:5001/api/specializations")
+          .then(response => {
+            console.log("Received specializations from API:", response.data); // تتبع البيانات الواردة
+            this.specializations = response.data; // تعيين البيانات
+            console.log("Assigned specializations:", this.specializations); // تتبع بعد التعيين
+          })
+          .catch(error => {
+            console.error("Error fetching specializations:", error); // تتبع الأخطاء
+          });
+      },
+      fetchPaths() {
+        axios.get("http://127.0.0.1:5001/api/paths")
+          .then(response => {
+            console.log("Received paths from API:", response.data); // تتبع البيانات الواردة
+            this.Paths = response.data; // تعيين البيانات
+            console.log("Assigned Paths:", this.Paths); // تتبع بعد التعيين
+          })
+          .catch(error => {
+            console.error("Error fetching paths:", error); // تتبع الأخطاء
+          });
+      },
+      async fetchCertifications() {
+        const response = await fetch(`http://127.0.0.1:5001/certifications?min_budget=${encodeURIComponent(this.min_budget)}&max_budget=${encodeURIComponent(this.max_budget)}&path=${encodeURIComponent(this.path)}&specialization=${encodeURIComponent(this.specialization)}`);
+        const data = await response.json();
+        console.log("Certifications received:", data);
+        this.certifications = data.certifications;
+        this.jobTitles = data.jobTitles;
+      }
+    },
+    mounted() {
+      console.log("Vue mounted, starting to fetch data..."); // تتبع بدء التحميل
+      this.fetchSpecializations();
+      this.fetchPaths();
+    }
+	
+	
+	
+  });
+</script>
+</body>
+</html>
