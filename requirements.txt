@@ -1,4 +1,5 @@
 Flask==3.0.3
 gunicorn==23.0.0
 neo4j==5.19.0
-flask_core
+flask_core==2.9.0
+psycopg2-binary
